@@ -1,0 +1,24 @@
+version: "2"
+services:
+  db:
+    image: mongo:3.4
+    volumes:
+      - mongo-data:/data/db
+  api:
+    build: ./api
+    environment:
+      NODE_ENV: development
+      MONGO_URL: mongodb://db:27017/movies
+    entrypoint: npm run watch
+    volumes:
+      - ./api:/usr/src/app
+    links:
+      - db
+  webserver:
+    build: ./webserver
+    ports:
+      - "8000:80"
+    links:
+      - api
+volumes:
+  mongo-data:
