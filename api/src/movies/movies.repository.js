@@ -1,16 +1,16 @@
 'use strict';
 
-const mongoose = require('mongoose');
+const Schema = require('mongoose').Schema;
 
 class MoviesRepository {
-  constructor(mongoose) {
-    const schema = mongoose.Schema({
+  constructor(mongooseConnection) {
+    const schema = new Schema({
       title: String,
       imageUrl: String,
       rating: Number,
       releaseYear: Number
     });
-    this.Movie = mongoose.model('Movie', schema);
+    this.Movie = mongooseConnection.model('Movie', schema);
   }
 
   findAll() {
@@ -39,4 +39,4 @@ class MoviesRepository {
   }
 }
 
-module.exports = new MoviesRepository(mongoose);
+module.exports = MoviesRepository;

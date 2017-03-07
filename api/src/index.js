@@ -6,7 +6,9 @@ const MONGO_URL = process.env['MONGO_URL'];
 const PORT = process.env['PORT'];
 
 const bootstrapMongoose = require('./mongoose.bootstrap');
-const bootstrapExpress = require('./express.bootstrap').call(null, PORT);
+const bootstrapExpress = (mongooseConnection) => {
+  return require('./express.bootstrap')(PORT, mongooseConnection);
+};
 
 bootstrapMongoose(MONGO_URL)
   .then(bootstrapExpress)

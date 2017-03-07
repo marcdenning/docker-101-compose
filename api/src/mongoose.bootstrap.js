@@ -5,14 +5,19 @@ const mongoose = require('mongoose');
 const isDevelopment = process.env['NODE_ENV'] === 'development';
 
 module.exports = function bootstrapMongoose(mongoUrl) {
-  console.log('Connecting to Mongo');
+  return new Promise((resolve, reject) => {
+    let mongooseConnection;
 
-  mongoose.Promise = Promise;
+    console.log('Connecting to Mongo');
 
-  return mongoose.connect(mongoUrl, {
-    autoIndex: isDevelopment
-  })
-    .then(() => {
-      console.log('Connected to Mongo');
+    mongoose.Promise = Promise;
+    mongooseConnection = mongoose.createConnection(mongoUrl, {
+      autoIndex: isDevelopment
     });
+    mongooseConnection.on('open', () => {
+      console.log('Connected to Mongo');
+      resolve(mongooseConnection);
+    });
+    mongooseConnection.on('error', reject);
+  });
 };
