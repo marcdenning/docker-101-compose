@@ -26,7 +26,7 @@ module.exports = function configureMoviesRoutes(moviesRepository) {
     moviesRepository.findOne(req.params.id)
       .then((movie) => {
         if (!movie) {
-          res.sendStatus(404);
+          res.status(404).send();
           return;
         }
         res.json({
@@ -79,7 +79,7 @@ module.exports = function configureMoviesRoutes(moviesRepository) {
     moviesRepository.save(patchModel)
       .then((movie) => {
         if (!movie) {
-          res.sendStatus(404);
+          res.status(404).send();
           return;
         }
         res.json({
@@ -92,10 +92,10 @@ module.exports = function configureMoviesRoutes(moviesRepository) {
     moviesRepository.delete(req.params.id)
       .then((movie) => {
         if (!movie) {
-          res.sendStatus(404);
+          res.status(404).send();
           return;
         }
-        res.sendStatus(204);
+        res.status(204).send();
       });
   }
 };

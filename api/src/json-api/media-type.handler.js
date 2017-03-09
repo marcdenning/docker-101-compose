@@ -7,11 +7,11 @@ module.exports = function () {
     const acceptMatches = acceptHeader ? acceptHeader.match(/application\/vnd.api\+json;?/) : null;
 
     if (contentTypeHeader && contentTypeHeader.match(/application\/vnd.api\+json\s*;/)) {
-      res.sendStatus(415);
+      res.status(415).send();
       return;
     }
     if (acceptMatches && acceptMatches.every((mediaType) => mediaType.match(/;/))) {
-      res.sendStatus(406);
+      res.status(406).send();
       return;
     }
     next();
