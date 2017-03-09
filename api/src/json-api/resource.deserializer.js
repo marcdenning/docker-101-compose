@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function jsonApiDeserializeResource(type, attributes, resource) {
+export default function (type, attributes, resource) {
   const model = {};
 
   if (!resource.type) {

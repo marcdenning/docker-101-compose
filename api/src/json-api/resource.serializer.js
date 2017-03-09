@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function jsonApiSerializeResource(type, idKey, attributes, model) {
+export default function (type, idKey, attributes, model) {
   const resource = {
     type,
     id: model[idKey],

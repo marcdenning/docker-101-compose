@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+export default function () {
   return function jsonApiMediaType(req, res, next) {
     const acceptHeader = req.get('Accept');
     const contentTypeHeader = req.get('Content-Type');

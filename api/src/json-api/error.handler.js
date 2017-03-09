@@ -2,7 +2,7 @@
 
 const isDevelopment = process.env['NODE_ENV'] === 'development';
 
-module.exports = function () {
+export default function () {
   return function jsonApiErrorHandler(err, req, res, next) {
     if (isDevelopment) {
       console.error(err.stack);

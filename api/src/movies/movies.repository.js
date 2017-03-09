@@ -1,10 +1,10 @@
 'use strict';
 
-const Schema = require('mongoose').Schema;
+import mongoose from 'mongoose';
 
 class MoviesRepository {
   constructor(mongooseConnection) {
-    const schema = new Schema({
+    const schema = new mongoose.Schema({
       title: String,
       imageUrl: String,
       rating: Number,
@@ -39,4 +39,4 @@ class MoviesRepository {
   }
 }
 
-module.exports = MoviesRepository;
+export default MoviesRepository;

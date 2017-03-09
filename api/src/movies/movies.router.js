@@ -1,11 +1,11 @@
 'use strict';
 
-const express = require('express');
+import express from 'express';
 
-const jsonApiSerializeResource = require('../json-api/resource.serializer');
-const jsonApiDeserializeResource = require('../json-api/resource.deserializer');
+import jsonApiSerializeResource from '../json-api/resource.serializer';
+import jsonApiDeserializeResource from '../json-api/resource.deserializer';
 
-module.exports = function configureMoviesRoutes(moviesRepository) {
+export default function (moviesRepository) {
   return express.Router()
     .get('/', findAll)
     .get('/:id', findOne)

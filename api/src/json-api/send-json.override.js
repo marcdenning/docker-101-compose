@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+export default function () {
   return function jsonApiSendOverride (req, res, next) {
     res.set('Content-Type', 'application/vnd.api+json');
     res.json = sendJsonApi.bind(res);
