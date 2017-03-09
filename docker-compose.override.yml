@@ -1,0 +1,11 @@
+version: "2"
+services:
+  api:
+    environment:
+      NODE_ENV: development
+    entrypoint: npm run watch
+    volumes:
+      - ./api:/usr/src/app
+  webserver:
+    ports:
+      - "8000:80"
