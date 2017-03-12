@@ -60,7 +60,9 @@ class MovieForm extends Component {
           onChange={this.updateMovieField}
         />
 
-        <input type="submit" value="Submit" />
+        <div>
+          <input type="submit" value="Submit" />
+        </div>
       </form>
     );
   }

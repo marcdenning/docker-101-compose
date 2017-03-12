@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import './movie-detail.css';
+
 class MovieDetail extends Component {
   constructor(props) {
     super(props);
@@ -14,18 +16,23 @@ class MovieDetail extends Component {
     const image = movie.imageUrl ? (<img src={movie.imageUrl} alt={altText}/>) : '';
 
     return (
-      <div>
-        <h2>{movie.title}</h2>
+      <div className="movie-detail">
+        <div className="movie-detail__info">
+          <h2>{movie.title}</h2>
 
-        <p><strong>Released:</strong> {movie.releaseYear}</p>
-        <p><strong>Rating:</strong> {movie.rating}</p>
+          <p><strong>Released:</strong> {movie.releaseYear}</p>
+          <p><strong>Rating:</strong> {movie.rating}</p>
 
-        {image}
 
-        <p>
-          <Link to={`/movie/${movie.id}/edit`}>Edit</Link>
-          <button type="button" onClick={this.deleteMovie}>Delete</button>
-        </p>
+          <p>
+            <Link to={`/movie/${movie.id}/edit`} className="button">Edit</Link>
+            <button type="button" onClick={this.deleteMovie} className="button--danger">Delete</button>
+          </p>
+        </div>
+
+        <div className="movie-detail__image">
+          {image}
+        </div>
       </div>
     );
   }

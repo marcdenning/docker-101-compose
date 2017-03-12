@@ -1,0 +1,33 @@
+.movie-grid {
+  display: block;
+  list-style-type: none;
+  padding: 0;
+}
+
+  .movie-grid > * {
+    width: 100%;
+    padding: 1em;
+  }
+
+@media (min-width: 50em) {
+  .movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+    .movie-grid > * {
+      width: calc(50% - 2em);
+    }
+}
+
+@media (min-width: 75em) {
+    .movie-grid > * {
+      width: calc(33% - 2em);
+    }
+}
+
+@media (min-width: 100em) {
+    .movie-grid > * {
+      width: calc(25% - 2em);
+    }
+}

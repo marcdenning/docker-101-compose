@@ -27,16 +27,19 @@ class App extends Component {
       <Router>
         <div>
           <header>
-            <Link to="/"><h1>Movie Browser</h1></Link>
+            <div>
+              <h1><Link to="/">Movie Browser</Link></h1>
+            </div>
           </header>
-          <main>
-            <nav>
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/add">Add Movie</Link></li>
-              </ul>
-            </nav>
 
+          <nav>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/add">Add Movie</Link></li>
+            </ul>
+          </nav>
+
+          <main>
             <Switch>
               <Route exact path="/" render={() => (<MovieBrowser movieService={this.movieService} />)} />
               <Route path="/movie/:id/edit" render={(props) => (<EditPage movieService={this.movieService} {...props} />)} />

@@ -1,0 +1,20 @@
+.movie-detail {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+  .movie-detail__info,
+  .movie-detail__image {
+    flex: 1 0 15em;
+    margin: 0;
+    padding: 1em;
+  }
+
+  .movie-detail__info {
+    order: 2;
+  }
+
+  .movie-detail__image img {
+    box-shadow: 0 0 5px 3px hsl(0, 0%, 30%)
+  }

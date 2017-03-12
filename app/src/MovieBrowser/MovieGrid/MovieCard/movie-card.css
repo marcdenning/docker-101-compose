@@ -1,0 +1,7 @@
+.movie-card__title {
+  margin-top: 0;
+}
+
+.movie-card__image {
+  box-shadow: 0 0 5px 3px hsl(0, 0%, 30%)
+}
