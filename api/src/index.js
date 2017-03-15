@@ -10,8 +10,10 @@ const bootstrapExpressWithPort = (mongooseConnection) => {
   return bootstrapExpress(PORT, mongooseConnection);
 };
 
-bootstrapMongoose(MONGO_URL)
-  .then(bootstrapExpressWithPort)
-  .catch((err) => {
-    console.error(`Failed to bootstrap app: ${err}`);
-  });
+export default () => {
+  bootstrapMongoose(MONGO_URL)
+    .then(bootstrapExpressWithPort)
+    .catch((err) => {
+      console.error(`Failed to bootstrap app: ${err}`);
+    });
+};

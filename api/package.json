@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Sample Node JSON API built on Express and Mongo.",
   "scripts": {
-    "start": "node-esml src/index.js",
-    "watch": "nodemon -L --exec node-esml -- src/index.js"
+    "start": "node src/bootstrap.js",
+    "watch": "nodemon -L src/bootstrap.js"
   },
   "author": "marc.denning@gmail.com",
   "license": "MIT",
