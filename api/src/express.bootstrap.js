@@ -34,7 +34,12 @@ export default function bootstrapExpress (port, mongooseConnection) {
       type: 'application/vnd.api+json'
     }));
 
-    app.use('/movies', configureMoviesRoutes(moviesRepository));
+    app.use('/api/movies', configureMoviesRoutes(moviesRepository));
+
+    app.use('/', (req, res) => {
+      res.set('Content-Type', 'text/plain');
+      res.send('Server up');
+    });
 
     app.use(jsonApiErrorHandler());
 

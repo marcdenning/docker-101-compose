@@ -1,0 +1,9 @@
+applications:
+- name: movie-app
+  instances: 1
+  memory: 64M
+  disk_quota: 64M
+  routes:
+  - route: mdenning-movie-app.cfapps.io
+  buildpack: staticfile_buildpack
+  stack: cflinuxfs2
