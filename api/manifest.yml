@@ -4,7 +4,7 @@ applications:
   memory: 256M
   disk_quota: 256M
   routes:
-  - route: mdenning-movie-app.cfapps.io/api
+  - route: movie-app.cfapps.io/api
   services:
   - movie-db
   stack: cflinuxfs2

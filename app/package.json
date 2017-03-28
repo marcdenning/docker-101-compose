@@ -2,7 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://docker-engine:8000",
+  "proxy": "http://docker-engine:8888",
   "devDependencies": {
     "react-scripts": "0.9.4"
   },

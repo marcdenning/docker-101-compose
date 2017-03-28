@@ -8,11 +8,13 @@ services:
     build: ./api
     environment:
       MONGO_URL: mongodb://db:27017/movies
+      NODE_ENV: development
     links:
       - db
-  webserver:
-    build: ./webserver
-    links:
-      - api
+    volumes:
+      - ./api:/usr/src/app
+    ports:
+      - "8888:8888"
+    entrypoint: npm run watch
 volumes:
   mongo-data:
