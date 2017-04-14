@@ -5,13 +5,21 @@ services:
     volumes:
       - mongo-data:/data/db
   api:
-    build: ./api
+    image: kenobi883/movie-api:latest
     environment:
+      NODE_ENV: development
       MONGO_URL: mongodb://db:27017/movies
+    entrypoint: npm run watch
+    volumes:
+      - ./api:/usr/src/app
     links:
       - db
-  webserver:
-    build: ./webserver
+  app:
+    image: kenobi883/movie-app:latest
+    environment:
+      API_URL: http://api:8888
+    ports:
+      - "8000:80"
     links:
       - api
 volumes:

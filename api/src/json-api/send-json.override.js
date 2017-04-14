@@ -2,7 +2,9 @@
 
 export default function () {
   return function jsonApiSendOverride (req, res, next) {
-    res.set('Content-Type', 'application/vnd.api+json');
+    if (!res.getHeader('Content-Type')) {
+      res.set('Content-Type', 'application/vnd.api+json');
+    }
     res.json = sendJsonApi.bind(res);
     res.sendError = sendJsonApiError.bind(res);
     next();
