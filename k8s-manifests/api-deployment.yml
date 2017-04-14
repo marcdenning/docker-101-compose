@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: movie-api-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: movie-api
+    spec:
+      containers:
+      - name: api
+        image: kenobi883/movie-api:latest
+        ports:
+        - containerPort: 8888
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongodb-service:27017/movies

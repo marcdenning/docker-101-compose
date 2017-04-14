@@ -1,0 +1,15 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: movie-app
+    spec:
+      containers:
+      - name: db
+        image: mongo:3.4
+        ports:
+        - containerPort: 27017
