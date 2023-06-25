@@ -1,10 +1,10 @@
 'use strict';
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const isDevelopment = process.env['NODE_ENV'] === 'development';
 
-module.exports = function bootstrapMongoose(mongoUrl) {
+export default (mongoUrl) => {
   return new Promise((resolve, reject) => {
     let mongooseConnection;
 

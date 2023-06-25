@@ -1,18 +1,18 @@
-version: "2"
+version: "3"
 services:
   db:
-    image: mongo:3.4
+    image: mongo:6.0.6
     volumes:
       - mongo-data:/data/db
   api:
     build: ./api
     environment:
       MONGO_URL: mongodb://db:27017/movies
-    links:
+    depends_on:
       - db
   webserver:
     build: ./webserver
-    links:
+    depends_on:
       - api
 volumes:
   mongo-data:

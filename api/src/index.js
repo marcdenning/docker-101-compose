@@ -1,7 +1,7 @@
 'use strict';
 
-import bootstrapMongoose from './mongoose.bootstrap';
-import bootstrapExpress from './express.bootstrap';
+import bootstrapMongoose from './mongoose.bootstrap.js';
+import bootstrapExpress from './express.bootstrap.js';
 
 const MONGO_URL = process.env['MONGO_URL'];
 const PORT = process.env['PORT'];
@@ -10,10 +10,8 @@ const bootstrapExpressWithPort = (mongooseConnection) => {
   return bootstrapExpress(PORT, mongooseConnection);
 };
 
-export default () => {
-  bootstrapMongoose(MONGO_URL)
-    .then(bootstrapExpressWithPort)
-    .catch((err) => {
-      console.error(`Failed to bootstrap app: ${err}`);
-    });
-};
+bootstrapMongoose(MONGO_URL)
+  .then(bootstrapExpressWithPort)
+  .catch((err) => {
+    console.error(`Failed to bootstrap app: ${err}`);
+  });

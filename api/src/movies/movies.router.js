@@ -2,8 +2,8 @@
 
 import express from 'express';
 
-import jsonApiSerializeResource from '../json-api/resource.serializer';
-import jsonApiDeserializeResource from '../json-api/resource.deserializer';
+import jsonApiSerializeResource from '../json-api/resource.serializer.js';
+import jsonApiDeserializeResource from '../json-api/resource.deserializer.js';
 
 export default function (moviesRepository) {
   return express.Router()

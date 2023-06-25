@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   api:
     environment:
@@ -6,6 +6,8 @@ services:
     entrypoint: npm run watch
     volumes:
       - ./api:/usr/src/app
+    ports:
+      - "8888:8888"
   webserver:
     ports:
       - "8000:80"

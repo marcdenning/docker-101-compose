@@ -4,16 +4,16 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
-import MoviesRepository from './movies/movies.repository';
-import configureMoviesRoutes from './movies/movies.router';
+import MoviesRepository from './movies/movies.repository.js';
+import configureMoviesRoutes from './movies/movies.router.js';
 
-import jsonApiMediaType from './json-api/media-type.handler';
-import jsonApiSendOverride from './json-api/send-json.override';
-import jsonApiErrorHandler from './json-api/error.handler';
+import jsonApiMediaType from './json-api/media-type.handler.js';
+import jsonApiSendOverride from './json-api/send-json.override.js';
+import jsonApiErrorHandler from './json-api/error.handler.js';
 
 const isDevelopment = process.env['NODE_ENV'] === 'development';
 
-export default function bootstrapExpress (port, mongooseConnection) {
+export default (port, mongooseConnection) => {
   return new Promise((resolve) => {
     const app = express();
     const moviesRepository = new MoviesRepository(mongooseConnection);
