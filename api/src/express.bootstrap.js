@@ -34,7 +34,7 @@ export default (port, mongooseConnection) => {
       type: 'application/vnd.api+json'
     }));
 
-    app.use('/movies', configureMoviesRoutes(moviesRepository));
+    app.use('/api/movies', configureMoviesRoutes(moviesRepository));
 
     app.use(jsonApiErrorHandler());
 

@@ -1,19 +1,30 @@
-export default function jsonApiSerialize(request) {
-  const resource = {};
+export default function jsonApiSerialize(method, resource) {
+  if (resource) {
+    const {id, ...attributes} = resource;
+    const body = {
+      data: {
+        type: 'movie',
+        attributes
+      }
+    };
 
-  if (!request.data) {
-    return request;
+    if (id) {
+      body.data.id = id;
+    }
+    return {
+      method,
+      headers: {
+        Accept: 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json'
+      },
+      body: JSON.stringify(body)
+    };
   }
-  request.headers['Content-Type'] = 'application/vnd.api+json';
-  resource.type = request.jsonApiType;
-  delete request.jsonApiType;
-  if (request.data.id) {
-    resource.id = request.data.id;
-    delete request.data.id;
-  }
-  resource.attributes = request.data;
-  request.data = {
-    data: resource
+
+  return {
+    method,
+    headers: {
+      Accept: 'application/vnd.api+json'
+    }
   };
-  return request;
 }

@@ -8,7 +8,7 @@ import {
 
 import './App.css';
 
-import configureAxios from './MovieBrowser/MovieService/axios.configure';
+import { getBaseUrl } from './JsonApi/api.utils';
 import MovieService from './MovieBrowser/MovieService';
 import MovieBrowser from './MovieBrowser';
 import DetailPage from'./MovieBrowser/DetailPage';
@@ -19,7 +19,7 @@ class App extends Component {
   constructor() {
     super();
 
-    this.movieService = new MovieService(configureAxios(window.location, '/api/'), 'movies');
+    this.movieService = new MovieService(`${getBaseUrl(window.location, '/api')}/movies`);
   }
 
   render() {

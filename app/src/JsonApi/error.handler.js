@@ -1,6 +1,3 @@
-export default function jsonApiErrorHandler(err) {
-  if (err.response && err.response.data) {
-    return Promise.reject(err.response.data.errors[0].title);
-  }
-  return Promise.reject(err.message);
+export default function jsonApiErrorHandler(responseBody) {
+  return Promise.reject(responseBody.errors[0].title);
 }

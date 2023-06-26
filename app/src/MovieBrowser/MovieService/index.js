@@ -1,43 +1,45 @@
+import jsonApiErrorHandler from '../../JsonApi/error.handler';
+import jsonApiDeserialize from '../../JsonApi/resource.deserializer';
+import jsonApiSerialize from '../../JsonApi/resource.serializer';
+
 class MovieService {
-  constructor(axios, baseUrl) {
-    this.axios = axios;
+  constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
 
   findAll() {
-    return this.makeRequest('', 'get')
-      .then((response) => response.data);
+    return this.makeRequest('', 'get');
   }
 
   findOne(id) {
-    return this.makeRequest(id, 'get')
-      .then((response) => response.data);
+    return this.makeRequest(id, 'get');
   }
 
   save(movie) {
     if (movie.id) {
-      return this.makeRequest(movie.id, 'patch', movie)
-        .then((response) => response.data);
+      return this.makeRequest(movie.id, 'patch', movie);
     }
-    return this.makeRequest('', 'post', movie)
-      .then((response) => response.data);
+    return this.makeRequest('', 'post', movie);
   }
 
   delete(id) {
     return this.makeRequest(id, 'delete');
   }
 
-  makeRequest(url, method, data) {
-    const request = {
-      url: `${this.baseUrl}/${url}`,
-      method
-    };
+  makeRequest(path, method, data) {
+    const url = `${this.baseUrl}/${path}`;
+    const requestOptions = jsonApiSerialize(method, data);
 
-    if (data) {
-      request.data = data;
-      request.jsonApiType = 'movie';
-    }
-    return this.axios.request(request);
+    return fetch(url, requestOptions)
+      .then(response => {
+        if (!response.ok) {
+          return response.json()
+            .then(jsonApiErrorHandler);
+        } else {
+          return response.json()
+            .then(jsonApiDeserialize);
+        }
+      });
   }
 }
 
