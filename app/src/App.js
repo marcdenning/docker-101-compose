@@ -41,7 +41,9 @@ class App extends Component {
 
           <main>
             <Switch>
-              <Route exact path="/" render={() => (<MovieBrowser movieService={this.movieService} />)} />
+              <Route exact path="/">
+                <MovieBrowser movieService={this.movieService} />
+              </Route>
               <Route path="/movie/:id/edit" render={(props) => (<EditPage movieService={this.movieService} {...props} />)} />
               <Route path="/movie/:id" render={(props) => (<DetailPage movieService={this.movieService} {...props} />)} />
               <Route path="/add" render={({ history }) => (<AddPage movieService={this.movieService} history={history} />)} />
