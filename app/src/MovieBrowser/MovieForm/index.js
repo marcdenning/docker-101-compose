@@ -1,84 +1,73 @@
-import React, { Component } from 'react';
+import { useState } from "react";
 
-class MovieForm extends Component {
-  constructor(props) {
-    super(props);
+function MovieForm ({ movie, submitFormCallback }) {
+  const initialMovie = movie || {
+    title: '',
+    releaseYear: (new Date()).getFullYear(),
+    rating: 0.0,
+    imageUrl: ''
+  };
+  const [localMovie, setLocalMovie] = useState(initialMovie);
 
-    if (props.movie) {
-      this.state = Object.assign({}, props.movie);
-    } else {
-      this.state = {
-        title: '',
-        releaseYear: (new Date()).getFullYear(),
-        rating: 0.0,
-        imageUrl: ''
-      };
-    }
+  return (
+    <form onSubmit={submitForm}>
+      <p>Fill out the following fields to add a movie:</p>
 
-    this.updateMovieField = this.updateMovieField.bind(this);
-    this.submitForm = this.submitForm.bind(this);
-  }
+      <label htmlFor="movie-title">Title</label>
+      <input
+        id="movie-title"
+        name="title"
+        type="text"
+        value={localMovie && localMovie.title}
+        onChange={updateMovieField}
+      />
 
-  render() {
-    return (
-      <form onSubmit={this.submitForm}>
-        <p>Fill out the following fields to add a movie:</p>
+      <label htmlFor="movie-release-year">Release Year</label>
+      <input
+        id="movie-release-year"
+        name="releaseYear"
+        type="number"
+        value={localMovie && localMovie.releaseYear}
+        onChange={updateMovieField}
+      />
 
-        <label htmlFor="movie-title">Title</label>
-        <input
-          id="movie-title"
-          name="title"
-          type="text"
-          value={this.state.title}
-          onChange={this.updateMovieField}
-        />
+      <label htmlFor="movie-rating">Rating</label>
+      <input
+        id="movie-rating"
+        name="rating"
+        type="number"
+        value={localMovie && localMovie.rating}
+        onChange={updateMovieField}
+      />
 
-        <label htmlFor="movie-release-year">Release Year</label>
-        <input
-          id="movie-release-year"
-          name="releaseYear"
-          type="number"
-          value={this.state.releaseYear}
-          onChange={this.updateMovieField}
-        />
+      <label htmlFor="movie-image-url">Image URL</label>
+      <input
+        id="movie-image-url"
+        name="imageUrl"
+        type="text"
+        value={localMovie && localMovie.imageUrl}
+        onChange={updateMovieField}
+      />
 
-        <label htmlFor="movie-rating">Rating</label>
-        <input
-          id="movie-rating"
-          name="rating"
-          type="number"
-          value={this.state.rating}
-          onChange={this.updateMovieField}
-        />
+      <div>
+        <input type="submit" value="Submit" />
+      </div>
+    </form>
+  );
 
-        <label htmlFor="movie-image-url">Image URL</label>
-        <input
-          id="movie-image-url"
-          name="imageUrl"
-          type="text"
-          value={this.state.imageUrl}
-          onChange={this.updateMovieField}
-        />
-
-        <div>
-          <input type="submit" value="Submit" />
-        </div>
-      </form>
-    );
-  }
-
-  updateMovieField(event) {
+  function updateMovieField(event) {
     const target = event.target;
     const name = target.name;
     const value = target.type === 'number' ? Number(target.value) : target.value;
 
-    this.setState({
+    setLocalMovie({
+      ...localMovie,
       [name]: value
     });
   }
 
-  submitForm(event) {
-    const movie = Object.assign({}, this.state);
+  function submitForm(event) {
+    const movie = Object.assign({}, localMovie);
 
     event.preventDefault();
     if (!movie.id) {
@@ -87,7 +76,7 @@ class MovieForm extends Component {
     if (movie.imageUrl.trim() === '') {
       movie.imageUrl = null;
     }
-    this.props.submitFormCallback(movie);
+    submitFormCallback(movie);
   }
 }
 

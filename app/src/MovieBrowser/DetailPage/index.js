@@ -20,7 +20,7 @@ function DetailPage({ movieService }) {
     return () => {
       ignore = true;
     };
-  }, [movieService, setMovie]);
+  }, [movieService, setMovie, id]);
   
   if (!movie) {
     return (<div></div>);

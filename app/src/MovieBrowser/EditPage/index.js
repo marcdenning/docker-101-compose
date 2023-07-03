@@ -1,47 +1,43 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from 'react';
 
 import MovieForm from '../MovieForm';
+import { useNavigate, useParams } from 'react-router-dom';
 
-class EditPage extends Component {
-  constructor(props) {
-    super(props);
+function EditPage ({ movieService }) {
+  const [movie, setMovie] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-    this.state = { movie: null };
+  useEffect(() => {
+    let ignore = false;
 
-    this.updateMovie = this.updateMovie.bind(this);
-  }
-
-  render() {
-    const movie = this.state.movie;
-
-    if (!movie) {
-      return (<div></div>);
-    }
-
-    return (
-      <div>
-        <h2>Edit: {movie.title}</h2>
-
-        <MovieForm movie={movie} submitFormCallback={this.updateMovie} />
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    const movieId = this.props.match.params.id;
-
-    this.props.movieService.findOne(movieId)
-      .then((movie) => {
-        this.setState({
-          movie
-        });
+    movieService.findOne(id)
+      .then(movie => {
+        if (!ignore) {
+          setMovie(movie);
+        }
       });
+    return () => {
+      ignore = true;
+    };
+  }, [movieService, setMovie, id]);
+
+  if (!movie) {
+    return (<div></div>);
   }
 
-  updateMovie(movie) {
-    this.props.movieService.save(movie)
-      .then((movie) => {
-        this.props.history.push(`/movie/${movie.id}`);
+  return (
+    <div>
+      <h2>Edit: {movie.title}</h2>
+
+      <MovieForm movie={movie} submitFormCallback={updateMovie} />
+    </div>
+  );
+
+  function updateMovie(movie) {
+    movieService.save(movie)
+      .then(movie => {
+        navigate(`/movie/${movie.id}`);
       });
   }
 }
