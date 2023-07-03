@@ -35,6 +35,8 @@ class MovieService {
         if (!response.ok) {
           return response.json()
             .then(jsonApiErrorHandler);
+        } else if (response.status === 204) {
+          return;
         } else {
           return response.json()
             .then(jsonApiDeserialize);
