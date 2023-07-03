@@ -8,22 +8,22 @@ class MovieService {
   }
 
   findAll() {
-    return this.makeRequest('', 'get');
+    return this.makeRequest('', 'GET');
   }
 
   findOne(id) {
-    return this.makeRequest(id, 'get');
+    return this.makeRequest(id, 'GET');
   }
 
   save(movie) {
     if (movie.id) {
-      return this.makeRequest(movie.id, 'patch', movie);
+      return this.makeRequest(movie.id, 'PATCH', movie);
     }
-    return this.makeRequest('', 'post', movie);
+    return this.makeRequest('', 'POST', movie);
   }
 
   delete(id) {
-    return this.makeRequest(id, 'delete');
+    return this.makeRequest(id, 'DELETE');
   }
 
   makeRequest(path, method, data) {
