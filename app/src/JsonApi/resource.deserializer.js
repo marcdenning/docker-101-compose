@@ -2,7 +2,7 @@ export default function jsonApiDeserialize(response) {
   if (response.data instanceof Array) {
     return response.data.map(deserializeResource);
   }
-  return deserializeResource(response.data.data);
+  return deserializeResource(response.data);
 };
 
 function deserializeResource(resource) {
