@@ -1,9 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './movie-card.css';
 
-const MovieCard = ({ movie }) => {
+function MovieCard ({ movie }) {
   const altText = `Poster for ${movie.title}`;
   const image = movie.imageUrl ? (<img src={movie.imageUrl} alt={altText} className="movie-card__image" />) : '';
 

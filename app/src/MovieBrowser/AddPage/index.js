@@ -1,28 +1,22 @@
-import React, { Component } from 'react';
-
 import MovieForm from '../MovieForm';
+import { useNavigate } from 'react-router-dom';
 
-class AddPage extends Component {
-  constructor(props) {
-    super(props);
+function AddPage({ movieService }) {
 
-    this.addMovie = this.addMovie.bind(this);
-  }
+  const navigate = useNavigate();
 
-  render() {
-    return (
-      <div>
-        <h2>Add Movie</h2>
+  return (
+    <div>
+      <h2>Add Movie</h2>
 
-        <MovieForm submitFormCallback={this.addMovie} />
-      </div>
-    );
-  }
+      <MovieForm submitFormCallback={addMovie} />
+    </div>
+  );
 
-  addMovie(movie) {
-    this.props.movieService.save(movie)
+  function addMovie(movie) {
+    movieService.save(movie)
       .then((movie) => {
-        this.props.history.push(`/movie/${movie.id}`);
+        navigate(`/movie/${movie.id}`);
       });
   }
 }

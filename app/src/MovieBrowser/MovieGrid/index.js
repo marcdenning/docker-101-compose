@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './movie-grid.css';
 import MovieCard from './MovieCard';
 

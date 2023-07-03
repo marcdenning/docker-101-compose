@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
   Route,
   Link
 } from 'react-router-dom';
@@ -24,7 +24,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <div>
           <header>
             <div>
@@ -40,17 +40,15 @@ class App extends Component {
           </nav>
 
           <main>
-            <Switch>
-              <Route exact path="/">
-                <MovieBrowser movieService={this.movieService} />
-              </Route>
-              <Route path="/movie/:id/edit" render={(props) => (<EditPage movieService={this.movieService} {...props} />)} />
-              <Route path="/movie/:id" render={(props) => (<DetailPage movieService={this.movieService} {...props} />)} />
-              <Route path="/add" render={({ history }) => (<AddPage movieService={this.movieService} history={history} />)} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<MovieBrowser movieService={this.movieService} />} />
+              <Route path="movie/:id/edit" element={<EditPage movieService={this.movieService} />} />
+              <Route path="movie/:id" element={<DetailPage movieService={this.movieService} />} />
+              <Route path="add" element={<AddPage movieService={this.movieService} />} />
+            </Routes>
           </main>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

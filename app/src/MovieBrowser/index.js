@@ -1,28 +1,28 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MovieGrid from './MovieGrid';
 
-class MovieBrowser extends Component {
-  constructor(props) {
-    super(props);
+function MovieBrowser({ movieService }) {
+  const [movies, setMovies] = useState([]);
 
-    this.state = { movies: [] };
-  }
+  useEffect(() => {
+    let ignore = false;
 
-  render() {
-    return (
-      <MovieGrid movies={this.state.movies} />
-    );
-  }
-
-  componentDidMount() {
-    this.props.movieService.findAll()
-      .then((movies) => {
-        this.setState({
-          movies
-        });
+    setMovies([]);
+    movieService.findAll()
+      .then(movies => {
+        if (!ignore) {
+          setMovies(movies);
+        }
       });
-  }
+    return () => {
+      ignore = true;
+    };
+  }, [movieService, setMovies]);
+
+  return (
+    <MovieGrid movies={movies} />
+  );
 }
 
 export default MovieBrowser;
