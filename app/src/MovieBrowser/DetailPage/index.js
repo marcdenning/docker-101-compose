@@ -1,43 +1,42 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import MovieDetail from './MovieDetail';
 
-class DetailPage extends Component {
-  constructor(props) {
-    super(props);
+function DetailPage({ movieService }) {
+  const [movie, setMovie] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    this.state = { movie: null };
-    this.deleteMovie = this.deleteMovie.bind(this);
+  useEffect(() => {
+    let ignore = false;
+
+    movieService.findOne(id)
+      .then(movie => {
+        if (!ignore) {
+          setMovie(movie);
+        }
+      })
+    return () => {
+      ignore = true;
+    };
+  }, [movieService, setMovie]);
+  
+  if (!movie) {
+    return (<div></div>);
   }
 
-  render() {
-    if (!this.state.movie) {
-      return (<div></div>);
-    }
+  return (
+    <MovieDetail
+      movie={movie}
+      deleteMovieCallback={deleteMovie}
+    />
+  );
 
-    return (
-      <MovieDetail
-        movie={this.state.movie}
-        deleteMovieCallback={this.deleteMovie}
-      />
-    );
-  }
-
-  componentDidMount() {
-    const movieId = this.props.match.params.id;
-
-    this.props.movieService.findOne(movieId)
-      .then((movie) => {
-        this.setState({
-          movie
-        });
-      });
-  }
-
-  deleteMovie(id) {
-    this.props.movieService.delete(id)
+  function deleteMovie(id) {
+    movieService.delete(id)
       .then(() => {
-        this.props.history.push('/');
+        navigate('/');
       });
   }
 }
