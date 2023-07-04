@@ -1,4 +1,4 @@
-FROM node:18-buster
+FROM docker.io/node:18-buster
 
 # Create app directory
 RUN mkdir -p /usr/src/app
