@@ -11,7 +11,12 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-ENV PORT=8888
+# Update permsissions of app source files
+RUN chown -R node /usr/src/app
 
+ENV PORT=8888
 EXPOSE 8888
+
+USER node
+
 CMD [ "npm", "start" ]

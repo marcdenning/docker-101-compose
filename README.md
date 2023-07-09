@@ -34,8 +34,9 @@ You may choose to use [Podman](https://podman.io/) for container management inst
 To manage multiple containers in a declarative fashion for development, use [Podman Compose](https://github.com/containers/podman-compose) which mimics Docker Compose.
 
 ```sh
-podman-compose up -d
+podman-compose -f docker-compose.yml up -d
 ```
+Using the volume mounting to bind a local folder to the container takes a bit more setup, so I've specified just the default compose file for Podman.
 
 **Note:** At the time of writing, I am having trouble getting Podman's networking to function properly with the Windows Subsystem for Linux.
 The instructions provided are theoretical for Podman on Windows.

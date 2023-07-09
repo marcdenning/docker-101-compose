@@ -10,9 +10,13 @@ services:
       MONGO_URL: mongodb://db:27017/movies
     depends_on:
       - db
+    ports:
+      - "8888:8888"
   webserver:
     build: ./webserver
     depends_on:
       - api
+    ports:
+      - "8000:80"
 volumes:
   mongo-data:
