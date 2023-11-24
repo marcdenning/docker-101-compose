@@ -3,6 +3,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import { auth } from 'express-oauth2-jwt-bearer';
 
 import MoviesRepository from './movies/movies.repository.js';
 import configureMoviesRoutes from './movies/movies.router.js';
@@ -26,9 +27,20 @@ export default (port, mongooseConnection) => {
       immediate: false
     }));
 
-    app.use(jsonApiMediaType());
-
     app.use(jsonApiSendOverride());
+
+    if (process.env['AUTH_ISSUER']) {
+      app.use(auth({
+        issuer: process.env['AUTH_ISSUER'],
+        jwksUri: process.env['AUTH_JWKS_URI'],
+        audience: process.env['AUTH_AUDIENCE'],
+        tokenSigningAlg: 'RS256'
+      }));
+    } else {
+      console.warn('Environment variable AUTH_ISSUER not set. Disabling authentication.');
+    }
+
+    app.use(jsonApiMediaType());
 
     app.use(bodyParser.json({
       type: 'application/vnd.api+json'
