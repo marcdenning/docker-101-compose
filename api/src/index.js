@@ -4,7 +4,7 @@ import bootstrapMongoose from './mongoose.bootstrap.js';
 import bootstrapExpress from './express.bootstrap.js';
 
 const MONGO_URL = process.env['MONGO_URL'];
-const PORT = process.env['PORT'];
+const PORT = process.env['PORT'] || 8888;
 
 const bootstrapExpressWithPort = (mongooseConnection) => {
   return bootstrapExpress(PORT, mongooseConnection);
