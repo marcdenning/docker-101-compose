@@ -1,4 +1,4 @@
-FROM docker.io/node:6
+FROM docker.io/node:18
 
 # Create app directory
 RUN mkdir -p /usr/src/app
