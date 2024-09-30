@@ -5,14 +5,14 @@ tasks:
   - name: Start API
     init: |
       docker compose up -d db
-      cd api && npm install      
-    command: cd app && npm run watch
+      cd $GITPOD_REPO_ROOT/api && npm install      
+    command: cd $GITPOD_REPO_ROOT/api && npm run watch
     env:
       MONGO_URL: mongodb://localhost:27017/movies
       NODE_ENV: development
   - name: Start web app
-    init: cd app && npm install
-    command: cd app && npm run watch
+    init: cd $GITPOD_REPO_ROOT/app && npm install
+    command: cd $GITPOD_REPO_ROOT/app && npm run watch
     env:
       NODE_ENV: development
 
