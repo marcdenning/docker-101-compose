@@ -13,16 +13,17 @@ export default function (moviesRepository) {
     .patch('/:id', update)
     .delete('/:id', remove);
 
-  function findAll (req, res) {
+  function findAll (req, res, next) {
     moviesRepository.findAll()
       .then((movies) => {
         res.json({
           data: movies.map(serializeMovie)
         });
-      });
+      })
+      .catch(next);
   }
 
-  function findOne (req, res) {
+  function findOne (req, res, next) {
     moviesRepository.findOne(req.params.id)
       .then((movie) => {
         if (!movie) {
@@ -32,16 +33,18 @@ export default function (moviesRepository) {
         res.json({
           data: serializeMovie(movie)
         });
-      });
+      })
+      .catch(next);
   }
 
-  function create (req, res) {
+  function create (req, res, next) {
     let model;
 
     try {
       model = deserializeMovieRequest(req);
       if (model.id) {
         res.status(403).sendError(new Error('May not specify an "id" property value to use.'));
+        return;
       }
     }
     catch (err) {
@@ -53,16 +56,18 @@ export default function (moviesRepository) {
         res.status(201).json({
           data: serializeMovie(movie)
         });
-      });
+      })
+      .catch(next);
   }
 
-  function update (req, res) {
+  function update (req, res, next) {
     let model, patchModel;
 
     try {
       model = deserializeMovieRequest(req);
       if (!model.id) {
         res.status(400).sendError(new Error('Must specify an "id" property value to use.'));
+        return;
       }
     }
     catch (err) {
@@ -85,10 +90,11 @@ export default function (moviesRepository) {
         res.json({
           data: serializeMovie(movie)
         });
-      });
+      })
+      .catch(next);
   }
 
-  function remove (req, res) {
+  function remove (req, res, next) {
     moviesRepository.delete(req.params.id)
       .then((movie) => {
         if (!movie) {
@@ -96,7 +102,8 @@ export default function (moviesRepository) {
           return;
         }
         res.status(204).send();
-      });
+      })
+      .catch(next);
   }
 };
 
