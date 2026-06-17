@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 
+import { isSafeHttpUrl } from '../../../utils/url.js';
 import './movie-detail.css';
 
 function MovieDetail({ movie, deleteMovieCallback }) {
   const altText = `Poster for ${movie.title}`;
-  const image = movie.imageUrl ? (<img src={movie.imageUrl} alt={altText}/>) : '';
+  const safeUrl = isSafeHttpUrl(movie.imageUrl) ? movie.imageUrl : null;
+  const image = safeUrl ? (<img src={safeUrl} alt={altText}/>) : '';
 
   return (
     <div className="movie-detail">
