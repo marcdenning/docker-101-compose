@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { isSafeHttpUrl } from '../../utils/url.js';
+
 function MovieForm ({ movie, submitFormCallback }) {
   const initialMovie = movie || {
     title: '',
@@ -8,6 +10,7 @@ function MovieForm ({ movie, submitFormCallback }) {
     imageUrl: ''
   };
   const [localMovie, setLocalMovie] = useState(initialMovie);
+  const [urlError, setUrlError] = useState('');
 
   return (
     <form onSubmit={submitForm}>
@@ -36,6 +39,9 @@ function MovieForm ({ movie, submitFormCallback }) {
         id="movie-rating"
         name="rating"
         type="number"
+        min="0"
+        max="10"
+        step="0.1"
         value={localMovie && localMovie.rating}
         onChange={updateMovieField}
       />
@@ -44,10 +50,11 @@ function MovieForm ({ movie, submitFormCallback }) {
       <input
         id="movie-image-url"
         name="imageUrl"
-        type="text"
+        type="url"
         value={localMovie && localMovie.imageUrl}
         onChange={updateMovieField}
       />
+      {urlError && <p role="alert" style={{ color: 'red' }}>{urlError}</p>}
 
       <div>
         <input type="submit" value="Submit" />
@@ -59,6 +66,10 @@ function MovieForm ({ movie, submitFormCallback }) {
     const target = event.target;
     const name = target.name;
     const value = target.type === 'number' ? Number(target.value) : target.value;
+
+    if (name === 'imageUrl') {
+      setUrlError('');
+    }
 
     setLocalMovie({
       ...localMovie,
@@ -73,7 +84,12 @@ function MovieForm ({ movie, submitFormCallback }) {
     if (!movie.id) {
       delete movie.id;
     }
-    if (movie.imageUrl.trim() === '') {
+    if (movie.imageUrl && movie.imageUrl.trim() !== '') {
+      if (!isSafeHttpUrl(movie.imageUrl)) {
+        setUrlError('Image URL must start with http:// or https://');
+        return;
+      }
+    } else {
       movie.imageUrl = null;
     }
     submitFormCallback(movie);

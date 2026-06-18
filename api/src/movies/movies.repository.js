@@ -35,7 +35,7 @@ class MoviesRepository {
   }
 
   delete(id) {
-    return this.Movie.findByIdAndRemove(id).exec();
+    return this.Movie.findByIdAndDelete(id).exec();
   }
 }
 

@@ -31,7 +31,8 @@ export default (port, mongooseConnection) => {
     app.use(jsonApiSendOverride());
 
     app.use(bodyParser.json({
-      type: 'application/vnd.api+json'
+      type: 'application/vnd.api+json',
+      limit: '100kb'
     }));
 
     app.use('/api/movies', configureMoviesRoutes(moviesRepository));
