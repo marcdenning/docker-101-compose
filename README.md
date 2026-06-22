@@ -2,7 +2,7 @@
 
 This multi-faceted application demonstrates a full-stack movie browser.
 The back-end is supported by MongoDB and NodeJS and provides an API adhering to the [JSON API specification](http://jsonapi.org/).
-The front-end is a React app. 
+The front-end is a React app built with [Vite](https://vite.dev/).
 Each component built on Docker containers and may be managed with [Docker Compose](https://docs.docker.com/compose/overview/).
 
 ## Running in Development
@@ -28,9 +28,8 @@ npm install
 npm start
 ```
 
-This will kick of a build of the app and set up a local file watcher to rebuild and reload changes when you make them.
-Under the hood, the app makes use of the build process provided by
-[Create React App](https://github.com/facebookincubator/create-react-app).
+This will start the Vite development server with hot module replacement at [http://localhost:5173](http://localhost:5173).
+API requests are proxied to the backend at `http://localhost:8888`.
 
 ### Using Podman
 

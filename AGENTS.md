@@ -8,7 +8,7 @@ A full-stack movie browser application demonstrating Docker containerization and
 
 - **MongoDB** — database for movie records
 - **Node.js/Express API** — REST API following the [JSON API specification](http://jsonapi.org/)
-- **React** — front-end single-page application
+- **React** — front-end single-page application built with [Vite](https://vite.dev/)
 - **Nginx** — web server / reverse proxy
 
 ## Repository Structure
@@ -27,7 +27,7 @@ A full-stack movie browser application demonstrating Docker containerization and
 │   └── Dockerfile
 ├── app/                    # React front-end
 │   ├── src/
-│   │   ├── App.js                          # Root component and routing
+│   │   ├── App.jsx                         # Root component and routing
 │   │   ├── MovieBrowser/
 │   │   │   ├── MovieGrid/                  # List/grid view
 │   │   │   ├── DetailPage/                 # Movie detail view
@@ -59,7 +59,7 @@ This applies `docker-compose.yml` then `docker-compose.override.yml` automatical
 
 API is accessible at `http://localhost:8000/api/movies`.
 
-To run the React dev server with hot reload:
+To run the React app with Vite with hot reload:
 
 ```sh
 cd app
@@ -67,7 +67,7 @@ npm install
 npm start
 ```
 
-The React dev server proxies API requests to `http://localhost:8888` (configured in `app/package.json`).
+Vite proxies API requests to `http://localhost:8888` (configured in `app/package.json`).
 
 ### Production
 
@@ -99,12 +99,12 @@ Environment variable `MONGO_URL` configures the database connection (default in 
 
 ## Front-end
 
-Built with Create React App (React 18, React Router v6). The `MovieService` in `app/src/MovieBrowser/MovieService/` handles all API communication and JSON API serialization/deserialization.
+Built with [Vite](https://vite.dev/), React 18 and React Router v6. The `MovieService` in `app/src/MovieBrowser/MovieService/` handles all API communication and JSON API serialization/deserialization.
 
 ## Key Conventions
 
 - The API is an ES module (`"type": "module"` in `api/package.json`); use `import`/`export` syntax.
-- The front-end uses standard Create React App conventions; no eject has been performed.
+- The front-end uses common Vite conventions for React apps including JSX files named with `.jsx`.
 - JSON API request/response handling is encapsulated in the `json-api/` (API) and `JsonApi/` (app) directories — keep serialization logic there.
 - MongoDB data access is isolated in `movies.repository.js`; route handlers in `movies.router.js` should not contain query logic.
 
